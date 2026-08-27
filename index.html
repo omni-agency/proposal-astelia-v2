@@ -802,6 +802,7 @@
             padding:0;
             margin:0;
             flex:1;
+            direction:rtl;
         }
         .module-card .feature-list li {
             padding:.28rem 0;
@@ -810,8 +811,14 @@
             color:var(--text);
             font-size:.9rem;
             line-height:1.55;
+            direction:rtl;
+            text-align:right;
+            unicode-bidi:plaintext;
         }
         .module-card .feature-list li::before {
+            content:none;
+        }
+        .module-card .feature-list li::after {
             content:'';
             position:absolute;
             right:0;
@@ -1180,7 +1187,7 @@
         }
         .astelia-about-grid {
             display:grid;
-            grid-template-columns:repeat(3,minmax(0,1fr));
+            grid-template-columns:repeat(2,minmax(0,1fr));
             gap:1rem;
         }
         .astelia-about-card {
@@ -1380,9 +1387,138 @@
         }
         .post-launch-grid {
             display:grid;
-            grid-template-columns:repeat(3,minmax(0,1fr));
+            grid-template-columns:1fr;
             gap:1.25rem;
+            direction:rtl;
         }
+        .proposal-part {
+            display:flex;
+            flex-wrap:wrap;
+            gap:1.25rem;
+            min-width:0;
+            align-items:stretch;
+        }
+        .proposal-part:first-child {
+            justify-content:center;
+        }
+        .proposal-part:first-child .module-card {
+            flex:0 0 calc((100% - 2.5rem) / 3);
+        }
+        .proposal-part-title {
+            flex:0 0 100%;
+            margin:1rem 0 .25rem;
+            color:var(--primary);
+            font-family:'Jost',sans-serif;
+            font-size:clamp(1.6rem,3.5vw,2.3rem);
+            font-weight:700;
+            letter-spacing:0;
+            text-align:center;
+        }
+        .astelia-core-offer {
+            grid-column:auto;
+            display:contents;
+            gap:1.25rem;
+            padding:0;
+            align-items:stretch;
+        }
+        .astelia-secondary-offer {
+            grid-column:auto;
+            display:contents;
+            gap:1.25rem;
+            direction:rtl;
+            align-items:stretch;
+        }
+        .astelia-core-offer .module-card,
+        .astelia-secondary-offer .module-card {
+            direction:rtl;
+            min-height:100%;
+            align-self:stretch;
+            height:auto;
+            min-width:0;
+            width:100%;
+            box-sizing:border-box;
+        }
+        .proposal-part .module-card {
+            min-height:0;
+            height:595px !important;
+            box-sizing:border-box;
+        }
+        .proposal-part > * { min-width:0; }
+        .proposal-part .module-card {
+            width:auto;
+            min-width:0;
+            max-width:100%;
+            overflow:hidden;
+            flex:1 1 0;
+            grid-column:auto !important;
+            grid-row:auto !important;
+            height:595px;
+            box-sizing:border-box;
+        }
+        .proposal-part:last-child .astelia-secondary-offer .module-card:first-child { order:1; }
+        .proposal-part:last-child .astelia-secondary-offer .module-card:nth-child(2) { order:2; }
+        .proposal-part:last-child > .module-card { order:3; }
+        .proposal-part:first-of-type .module-card { grid-column:span 1; }
+        .proposal-part:last-of-type .module-card { grid-column:span 1; }
+        .astelia-core-offer .module-card:first-child .feature-list {
+            display:block;
+        }
+        .proposal-part:last-child .astelia-secondary-offer .module-card:first-child {
+            grid-column:2;
+            grid-row:2;
+        }
+        .proposal-part:last-child .astelia-secondary-offer .module-card:nth-child(2) {
+            grid-column:3;
+            grid-row:2;
+        }
+        .proposal-part:last-child > .module-card {
+            grid-column:1;
+            grid-row:2;
+        }
+        .post-launch-grid > .module-card:nth-child(3) {
+            width:min(100%, 520px);
+            margin:0 auto;
+            direction:rtl;
+        }
+        /* Desktop grouping: tight frames around the requested card pairs. */
+        .proposal-part:first-child .astelia-core-offer {
+            display:grid;
+            grid-template-columns:repeat(2,432px);
+            gap:1rem;
+            flex:0 0 auto;
+            border:2px solid var(--navy);
+            border-radius:22px;
+            padding:2px;
+            margin:8px 0;
+        }
+        .proposal-part:last-child .astelia-secondary-offer {
+            display:grid;
+            grid-template-columns:repeat(2,432px);
+            gap:1rem;
+            flex:0 0 auto;
+            border:2px solid var(--navy);
+            border-radius:22px;
+            padding:2px;
+            margin:8px 0;
+            direction:ltr;
+        }
+        .proposal-part .module-card {
+            flex:0 0 432px;
+            width:432px;
+            height:595px !important;
+            box-sizing:border-box;
+        }
+        .proposal-part:last-child {
+            justify-content:center;
+            gap:0;
+        }
+        .proposal-part:last-child > .module-card {
+            order:3;
+            flex:0 0 432px;
+            margin-top:12px;
+        }
+        .proposal-part:last-child .astelia-secondary-offer .module-card:first-child { order:1; }
+        .proposal-part:last-child .astelia-secondary-offer .module-card:nth-child(2) { order:2; }
         .astelia-offer-layout .module-card {
             padding:1.5rem;
         }
@@ -1502,7 +1638,42 @@
             .astelia-about-grid,
             .astelia-goals,
             .launch-bundle-grid,
-            .post-launch-grid { grid-template-columns:1fr; }
+            .post-launch-grid,
+            .astelia-core-offer,
+            .astelia-secondary-offer { grid-template-columns:1fr; }
+            .astelia-core-offer,
+            .astelia-secondary-offer {
+                width:100%;
+                margin-inline:0;
+                padding:4px;
+            }
+            .proposal-part,
+            .proposal-part:first-child { flex-direction:column; }
+            .proposal-part { width:100%; align-items:stretch; }
+            .proposal-part-title { flex:0 0 auto; width:100%; }
+            .proposal-part .module-card,
+            .proposal-part:first-child .module-card { flex:0 0 auto; width:100%; height:auto; }
+            .proposal-part:first-child .astelia-core-offer,
+            .proposal-part:last-child .astelia-secondary-offer {
+                display:grid;
+                grid-template-columns:1fr;
+                width:100%;
+                gap:1.25rem;
+                padding:4px;
+                border:2px solid var(--navy);
+                border-radius:22px;
+            }
+            .proposal-part .module-card { height:auto !important; min-height:0; }
+            .proposal-part:last-child > .module-card { width:calc(100% - 12px); align-self:center; margin-top:0; }
+            .proposal-part:last-child > .module-card { order:3; }
+            .proposal-part:last-child .astelia-secondary-offer .module-card:first-child { order:2; }
+            .proposal-part:last-child .astelia-secondary-offer .module-card:nth-child(2) { order:1; }
+            .astelia-core-offer .module-card,
+            .astelia-secondary-offer .module-card { grid-column:auto; grid-row:auto; height:auto; }
+            .astelia-core-offer .module-card:first-child .feature-list { grid-template-columns:1fr; }
+            .post-launch-grid > .module-card:nth-child(3) { width:100%; }
+            .post-launch-grid > .module-card:nth-child(2),
+            .post-launch-grid > .module-card:nth-child(3) { grid-column:auto; grid-row:auto; }
             .astelia-goals .strategy-card { min-height:130px; }
             .astelia-about-card h4 { min-height:auto; }
             .launch-bundle-header { align-items:flex-start; }
@@ -1672,11 +1843,14 @@
         </div>
         <div class="astelia-offer-layout">
             <div class="post-launch-grid">
-                <div class="module-card featured reveal">
+                <div class="proposal-part">
+                <div class="proposal-part-title">Part 1</div>
+                <div class="astelia-core-offer">
+                <div class="module-card reveal">
                     <div class="module-eyebrow">Strategy &amp; launch</div>
                     <div class="module-title">אסטרטגיה, הקמה והשקת העמוד</div>
                     <p class="module-desc">בניית התשתית המלאה לעמוד Life at Astelia, מהגדרת הכיוון ועד להשקה בפועל.</p>
-                    <div class="module-price"><span class="price-lockup"><bdi class="vat-note" dir="rtl">+ מע״מ</bdi><span class="current-price">₪8,000</span></span></div>
+                    <div class="module-price"><span class="price-lockup"><bdi class="vat-note" dir="rtl">+ מע״מ</bdi><span class="current-price">₪9,800</span></span></div>
                     <ul class="feature-list">
                         <li><strong>פגישת אפיון</strong> - מטרות, קהלים ומדדי הצלחה</li>
                         <li><strong>פיתוח מיצוב ושפה</strong> - טון דיבור ועולמות תוכן</li>
@@ -1684,10 +1858,56 @@
                         <li><strong>שפה ויזואלית</strong> - התאמה מלאה לחברת Astelia</li>
                         <li><strong>הקמת העמוד</strong> - Bio, קישורים ו-Highlights</li>
                         <li><strong>תכנון גריד</strong> - בניית נראות הפיד</li>
-                        <li><strong>6 פוסטים</strong> - כתיבה ועיצוב</li>
+                        <li><strong>12 פוסטים להשקה</strong> - קריאייטיב, כתיבת קופי מלאה ועיצוב גרפי</li>
                     </ul>
                 </div>
 
+                <div class="module-card reveal">
+                    <div class="module-eyebrow">Production Day</div>
+                    <div class="module-title">יום צילום במשרדי Astelia</div>
+                    <p class="module-desc">יצירת בנק תוכן אותנטי ומקצועי שמציג את האנשים, התרבות והאווירה בחברה.</p>
+                    <div class="module-price"><span class="price-lockup"><bdi class="vat-note" dir="rtl">+ מע״מ</bdi><span class="current-price">₪6,500</span></span></div>
+                    <ul class="feature-list">
+                        <li><strong>הכנה מקדימה</strong> - פיתוח רעיונות, שאלות לראיונות, תסריטים ושוט-ליסט מפורט</li>
+                        <li><strong>תכנון יום הצילום</strong> - בניית לו״ז צילומים מסודר</li>
+                        <li><strong>יום צילום מלא בפועל</strong> - עד 8 שעות במשרדי החברה באמצעות ציוד צילום מקצועי</li>
+                        <li><strong>5 סרטונים ערוכים</strong> - פאונדרים, 2 סרטוני עובדים, סרטון אווירה וסרטון נוסף בהתאמה לצורך נקודתי</li>
+                        <li><strong>50 תמונות ערוכות</strong> - עובדים ואווירה משרדית</li>
+                    </ul>
+                </div>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+<!-- Offer Part 2 -->
+<div class="snap-section bg-beige astelia-offer-snap">
+<section class="section" id="offer-part-2" style="max-width:1400px;">
+    <div class="reveal">
+        <div class="section-header">
+            <span class="section-number">04</span>
+            <h2 class="section-title">Part 2</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="astelia-offer-layout">
+            <div class="post-launch-grid">
+                <div class="proposal-part">
+                <div class="astelia-secondary-offer">
+                <div class="module-card reveal">
+                    <div class="module-eyebrow">Modular Add-ons</div>
+                    <div class="module-title">תוספות ימי צילום</div>
+                    <p class="module-desc">אפשרות להרחיב את נפח התוכן בהתאם לצורך ולרענן את מאגר התוכן של העמוד.</p>
+                    <ul class="feature-list">
+                        <li><strong>סרטון יחיד</strong> - עד שעתיים צילום: <bdi dir="rtl">₪3,000 פלוס מע״מ</bdi></li>
+                        <li><strong>שני סרטונים</strong>: <bdi dir="rtl">₪4,200 פלוס מע״מ</bdi></li>
+                        <li><strong>שלושה סרטונים</strong>: <bdi dir="rtl">₪5,400 פלוס מע״מ</bdi></li>
+                        <li><strong>חמישה סרטונים</strong> - יום צילום מלא פלוס 50 תמונות: <bdi dir="rtl">₪6,500 פלוס מע״מ</bdi></li>
+                    </ul>
+                </div>
                 <div class="module-card reveal">
                     <div class="module-eyebrow">Monthly retainer</div>
                     <div class="module-title">ניהול חודשי בריטיינר</div>
@@ -1706,6 +1926,8 @@
                     <div class="module-note">המחיר אינו כולל שיווק ממומן. ניתן להוסיף ניהול קמפיינים בנפרד ובהתאם לצורך.</div>
                 </div>
 
+                </div>
+
                 <div class="module-card reveal">
                     <div class="module-eyebrow">Event production day</div>
                     <div class="module-title">יום צילום לאירוע</div>
@@ -1721,6 +1943,7 @@
                         <li>צילום במצלמה מקצועית</li>
                         <li><strong>אספקה</strong> - עד 5 ימי עסקים</li>
                     </ul>
+                </div>
                 </div>
             </div>
         </div>
